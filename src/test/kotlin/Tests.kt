@@ -196,6 +196,7 @@ class ParcialTest : DescribeSpec({
             viajeFuturo.agregarObserver(ActualizarKilometros(serviceCalculo))
 
             viajeFuturo.agregarViajero(viajeroRico)
+            viajeFuturo.viajeros().size shouldBe 1
             viajeFuturo.completarViaje()
 
             viajeroRico.kmPorMes[YearMonth.now()] shouldBe 16.14172032
@@ -205,16 +206,7 @@ class ParcialTest : DescribeSpec({
             viajeFuturo.completarViaje()
 
             viajeroRico.kmPorMes[YearMonth.now()] shouldBe 32.28344064
-
-
-
         }
 
     }
-
-
-
-
-
-
 })

@@ -42,11 +42,17 @@ abstract class Viaje(){
         viajeros.add(viajero)
     }
 
+    fun distanciaTotal(service: ServiceCalculoDistancia) =
+        service.calcularDistancia(lugarInicio.coordenadas, destino.coordenadas).aKilometros()
+
     abstract fun validar(viajero: Persona)
+
 }
 
 class ViajeSimple() : Viaje(){
     override fun validar(viajero: Persona) {}
+
+
 
 }
 
@@ -65,17 +71,21 @@ class ViajeProgramado(var capacidadMaxima : Int , var deudaMaxima : Int ) : Viaj
         require(!estaLleno()) { "El viaje esta completo" }
         require(saldoCorrecto(viajero)) { "El viajero supera la deuda maxima permitida" }
     }
+
 }
+
+
 
 class Itinerario() : Viaje(){
 
-    private val paradas = mutableListOf<Itinerario>()
+    private val paradas = mutableListOf<Viaje>()
+    private var longevidadMinimaTarjeta : Int = 6
 
-    fun agregarParada(parada: Itinerario) = paradas.add(parada)
+    fun agregarParada(parada: Viaje) = paradas.add(parada)
 
     fun saldoCorrecto(viajero: Persona) = viajero.tarjeta.saldo > costoParaViajero(viajero)
 
-    fun tarjetaValida(viajero: Persona) = viajero.tarjeta.longevidad() > 6
+    fun tarjetaValida(viajero: Persona) = viajero.tarjeta.longevidad() > longevidadMinimaTarjeta
 
     override fun validar(viajero: Persona) {
         require(saldoCorrecto(viajero)) {"El viajero no tiene saldo suficiente " +
@@ -83,5 +93,7 @@ class Itinerario() : Viaje(){
         require(tarjetaValida(viajero)) {"La tarjeta debe tener mas de 6 meses de antiguedad " +
                 "(tiene ${viajero.tarjeta.longevidad()})"}
     }
+
+
 }
 

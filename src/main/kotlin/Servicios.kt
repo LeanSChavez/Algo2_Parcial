@@ -14,8 +14,10 @@ data class Mail(
 
 interface ServiceCalculoDistancia{
 
-    fun calcularDistancia(lugarInicio: Float, destino: Float, valorFijo : Int = 18) : Coordenadas
+    fun calcularDistancia(lugarInicio: Float, destino: Float, codigoID : Int = 18) : Coordenadas
 
 }
 
-data class Coordenadas(var enteros : Int, var decimal: Int)
+data class Coordenadas(var enteros: Int, var decimal: Int) {
+    fun aKilometros() = (enteros + decimal / 100.0) * 1.609344
+}

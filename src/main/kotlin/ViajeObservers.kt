@@ -29,12 +29,7 @@ class AvisarDeuda(var mailSender: MailSender, var limiteDeuda: Double) : ViajeOb
 class ActualizarKilometros(val service: ServiceCalculoDistancia) : ViajeObservers {
 
     override fun aplicarA(viaje: Viaje, viajero: Persona) {
-        val distanciaEnMillas = service.calcularDistancia(viaje.lugarInicio.coordenadas ,
-            viaje.destino.coordenadas)
-        // La distancia devuelve una data class coordenadas con (var enteros : Int, var decimal: Int) EN MILLAS
-        val distanciaEnKm = (distanciaEnMillas.enteros + distanciaEnMillas.decimal / 100.0) * 1.609344
-
-        viajero.acumularKm(distanciaEnKm)
+        viajero.acumularKm(viaje.distanciaTotal(service))
     }
 }
 
