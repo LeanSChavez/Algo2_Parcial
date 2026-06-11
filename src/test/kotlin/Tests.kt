@@ -185,13 +185,13 @@ class ParcialTest : DescribeSpec({
         // --------------------------- PUNTO 3 ---------------------------
 
         it ("Actualizar kilometros"){
-            var lugarUno = Lugar("San Martin" , 500F)
-            var lugarDos = Lugar("San Isidro", 200F)
+            var lugarUno = Lugar("San Martin" , 500F, 200F)
+            var lugarDos = Lugar("San Isidro", 200F, 132F)
 
             viajeFuturo.apply{lugarInicio = lugarUno ; destino = lugarDos}
 
             var serviceCalculo = mockk<ServiceCalculoDistancia>()
-            every {serviceCalculo.calcularDistancia(any(),any())} returns Coordenadas(10 , 3)
+            every {serviceCalculo.calcularDistancia(500F, 200F, 200F, 132F)} returns Coordenadas(10 , 3)
 
             viajeFuturo.agregarObserver(ActualizarKilometros(serviceCalculo))
 

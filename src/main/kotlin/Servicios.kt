@@ -14,7 +14,8 @@ data class Mail(
 
 interface ServiceCalculoDistancia{
 
-    fun calcularDistancia(lugarInicio: Float, destino: Float, codigoID : Int = 18) : Coordenadas
+    fun calcularDistancia(lugarInicioX: Float, lugarInicioY: Float, destinoX: Float
+                          , destinoY: Float, codigoID : Int = 18) : Coordenadas
 
 }
 

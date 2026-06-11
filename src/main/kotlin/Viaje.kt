@@ -6,7 +6,7 @@ import javax.print.attribute.standard.Destination
 
 val horasPico = listOf(7..10, 16..19)
 
-data class Lugar(var nombre : String , var coordenadas : Float)
+data class Lugar(var nombre : String , var coordX : Float , var coordY : Float)
 
 abstract class Viaje(){
     lateinit var sistemaDeCobros: SistemaDeCobros
@@ -43,7 +43,8 @@ abstract class Viaje(){
     }
 
     fun distanciaTotal(service: ServiceCalculoDistancia) =
-        service.calcularDistancia(lugarInicio.coordenadas, destino.coordenadas).aKilometros()
+        service.calcularDistancia(lugarInicio.coordX, lugarInicio.coordY
+            , destino.coordX, destino.coordY).aKilometros()
 
     abstract fun validar(viajero: Persona)
 
