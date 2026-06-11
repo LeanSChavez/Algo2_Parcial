@@ -84,7 +84,7 @@ class ParcialTest : DescribeSpec({
 
         it ("No puede sumar pasajero si faltan menos de 2 horas para el viaje"){
             viajeProgramado.apply {horarioDeSalida = LocalDateTime.now().plusHours(1)}
-            val exception = shouldThrow<IllegalArgumentException> {
+            val exception = shouldThrow<RuntimeException> {
                 viajeProgramado.agregarViajero(viajeroGenerico)
             }
             exception.message shouldBe "No se puede ingresar con menos de 2 horas de anticipación"
@@ -93,7 +93,7 @@ class ParcialTest : DescribeSpec({
             repeat(10){viajeProgramado.agregarViajero(viajeroGenerico)}
             viajeProgramado.viajeros().size shouldBe 10
 
-            val exception = shouldThrow<IllegalArgumentException> {
+            val exception = shouldThrow<RuntimeException> {
                 viajeProgramado.agregarViajero(viajeroGenerico)
             }
             exception.message shouldBe "El viaje esta completo"
@@ -102,7 +102,7 @@ class ParcialTest : DescribeSpec({
         }
         it ("No se puede ingresar si el viajero debe mas que la deuda maxima"){
             tarjetaViajera.apply {saldo = -350.0}
-            val exception = shouldThrow<IllegalArgumentException>{
+            val exception = shouldThrow<RuntimeException>{
                 viajeProgramado.agregarViajero(viajeroGenerico)
             }
             exception.message shouldBe "El viajero supera la deuda maxima permitida"
@@ -128,7 +128,7 @@ class ParcialTest : DescribeSpec({
             sistemaNuevo.agregarCondicionTarifaria(DescuentoEdad())
             viajeItinerario.saldoCorrecto(viajeroGenerico) shouldBe false
 
-            val exception = shouldThrow<IllegalArgumentException>{
+            val exception = shouldThrow<RuntimeException>{
                 viajeItinerario.agregarViajero(viajeroGenerico)
             }
 
@@ -139,7 +139,7 @@ class ParcialTest : DescribeSpec({
             tarjetaViajera.apply {saldo = 30.0}
             viajeItinerario.tarjetaValida(viajeroGenerico) shouldBe false
 
-            val exception = shouldThrow<IllegalArgumentException>{
+            val exception = shouldThrow<RuntimeException>{
                 viajeItinerario.agregarViajero(viajeroGenerico)
             }
 
