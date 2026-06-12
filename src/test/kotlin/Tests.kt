@@ -160,7 +160,7 @@ class ParcialTest : DescribeSpec({
         every {mailSender.sendMail(any())} just Runs
 
         var viajeFuturo = ViajeProgramado(30 , 50)
-            .apply{sistemaDeCobros = sistemaCobros ; distancia = 500.0}
+            .apply{sistemaDeCobros = sistemaCobros}
         viajeFuturo.agregarObserver(RegistrarValor())
         viajeFuturo.agregarObserver(AvisarDeuda(mailSender, 3.0))
 

@@ -16,7 +16,6 @@ abstract class Viaje(){
     lateinit var lugarInicio : Lugar
     lateinit var destino : Lugar
     var completado : Boolean = false
-    var distancia: Double = 0.0
 
     private var observers = mutableListOf<ViajeObservers>()
     fun agregarObserver(observer : ViajeObservers) = observers.add(observer)
@@ -54,9 +53,6 @@ abstract class Viaje(){
 
 class ViajeSimple() : Viaje(){
     override fun validar(viajero: Persona) {}
-
-
-
 }
 
 class ViajeProgramado(var capacidadMaxima : Int , var deudaMaxima : Int ) : Viaje(){
@@ -74,14 +70,13 @@ class ViajeProgramado(var capacidadMaxima : Int , var deudaMaxima : Int ) : Viaj
         if (estaLleno()){throw ExcepcionValidacion("El viaje esta completo") }
         if (!saldoCorrecto(viajero)) {throw ExcepcionValidacion("El viajero supera la deuda maxima permitida") }
     }
-
 }
 
 
 
 class Itinerario() : Viaje(){
 
-    private val paradas = mutableListOf<Viaje>()
+    private var paradas = mutableListOf<Viaje>()
     private var longevidadMinimaTarjeta : Int = 6
 
     fun agregarParada(parada: Viaje) = paradas.add(parada)
